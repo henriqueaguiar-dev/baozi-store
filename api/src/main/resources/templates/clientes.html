@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f7f4ef;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --accent: #0f766e;
+            --accent-soft: #ccfbf1;
+            --border: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background:
+                radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 30%),
+                linear-gradient(180deg, #fbfaf7 0%, var(--bg) 100%);
+            color: var(--text);
+        }
+
+        .page {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 48px 24px 64px;
+        }
+
+        .hero {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--accent);
+            font: 600 12px/1.2 Arial, sans-serif;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            line-height: 0.95;
+        }
+
+        .subtitle {
+            margin: 0;
+            color: var(--muted);
+            max-width: 60ch;
+            font: 400 1rem/1.6 Arial, sans-serif;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, #fff 0%, #f9fafb 100%);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            padding: 8px 12px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font: 700 13px/1 Arial, sans-serif;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 640px;
+        }
+
+        th,
+        td {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            font: 700 13px/1.2 Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            background: #fcfcfd;
+        }
+
+        tbody tr:hover {
+            background: #fafafa;
+        }
+
+        .empty {
+            padding: 40px 24px;
+            color: var(--muted);
+            font: 400 1rem/1.6 Arial, sans-serif;
+        }
+
+        .id-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #4338ca;
+            font: 700 13px/1 Arial, sans-serif;
+        }
+
+        @media (max-width: 720px) {
+            .page {
+                padding: 28px 16px 44px;
+            }
+
+            .panel-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <span class="eyebrow">Boazi Store</span>
+            <h1>Clientes cadastrados</h1>
+            <p class="subtitle">
+                Esta tela mostra os clientes carregados do banco. Se a lista estiver vazia, o sistema
+                continua funcionando e a página apenas informa que não há registros ainda.
+            </p>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <div>
+                    <div class="badge">Lista de clientes</div>
+                </div>
+                <div class="badge" th:text="${#lists.size(clientes)} + ' registros'">0 registros</div>
+            </div>
+
+            <div class="table-wrap" th:if="${!#lists.isEmpty(clientes)}">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Cliente desde</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cliente : ${clientes}">
+                            <td><span class="id-pill" th:text="${cliente.id}">1</span></td>
+                            <td th:text="${cliente.nome}">Nome do cliente</td>
+                            <td th:text="${cliente.clienteDesde}">2026-06-10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty" th:if="${#lists.isEmpty(clientes)}">
+                Nenhum cliente encontrado no banco de dados.
+            </div>
+        </section>
+    </main>
+</body>
+</html>
