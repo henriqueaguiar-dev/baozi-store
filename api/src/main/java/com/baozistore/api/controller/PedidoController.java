@@ -33,8 +33,7 @@ public class PedidoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Pedido> obterPedidoPorId(@PathVariable UUID id) {
-        Pedido pedido = pedidoService.obterPedidoPorId(id);
-        return pedido == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(pedido);
+        return ResponseEntity.ok(pedidoService.obterPedidoPorId(id));
     }
 
     @PostMapping
@@ -44,8 +43,7 @@ public class PedidoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Pedido> atualizarPedido(@PathVariable UUID id, @RequestBody Pedido pedidoAtualizado) {
-        Pedido pedido = pedidoService.atualizarPedido(id, pedidoAtualizado);
-        return pedido == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(pedido);
+        return ResponseEntity.ok(pedidoService.atualizarPedido(id, pedidoAtualizado));
     }
 
     @DeleteMapping("/{id}")

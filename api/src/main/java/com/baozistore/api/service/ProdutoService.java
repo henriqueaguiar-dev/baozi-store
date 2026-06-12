@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.baozistore.api.model.Produto;
+import com.baozistore.api.exception.ResourceNotFoundException;
 import com.baozistore.api.repository.ProdutoRepository;
 
 @Service
@@ -22,7 +23,8 @@ public class ProdutoService {
     }
 
     public Produto obterProdutoPorId(UUID id) {
-        return produtoRepository.findById(id).orElse(null);
+        return produtoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Produto not found with id: " + id));
     }
 
     public List<Produto> obterTodosProdutos() {
@@ -37,10 +39,13 @@ public class ProdutoService {
                     produto.setEstoque(produtoAtualizado.getEstoque());
                     return produtoRepository.save(produto);
                 })
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("Produto not found with id: " + id));
     }
 
     public void deletarProduto(UUID id) {
+        if (!produtoRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Produto not found with id: " + id);
+        }
         produtoRepository.deleteById(id);
     }
 }

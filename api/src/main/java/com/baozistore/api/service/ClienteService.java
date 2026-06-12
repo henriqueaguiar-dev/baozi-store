@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import com.baozistore.api.exception.ResourceNotFoundException;
 import com.baozistore.api.model.Cliente;
 import com.baozistore.api.repository.ClienteRepository;
 
@@ -24,7 +25,8 @@ public class ClienteService {
     }
 
     public Cliente obterClientePorId(UUID id) {
-        return clienteRepository.findById(id).orElse(null);
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente not found with id: " + id));
     }
 
     public List<Cliente> obtertodosClientes() {
@@ -39,10 +41,13 @@ public class ClienteService {
                     cliente.setClienteDesde(clienteAtualizado.getClienteDesde());
                     return clienteRepository.save(cliente);
                 })
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente not found with id: " + id));
     }
 
     public void deletarCliente(UUID id) {
+        if (!clienteRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Cliente not found with id: " + id);
+        }
         clienteRepository.deleteById(id);
     }
     

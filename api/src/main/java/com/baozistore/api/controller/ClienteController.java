@@ -34,8 +34,7 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> obterClientePorId(@PathVariable UUID id) {
-        Cliente cliente = clienteService.obterClientePorId(id);
-        return cliente == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(cliente);
+        return ResponseEntity.ok(clienteService.obterClientePorId(id));
     }
 
     @PostMapping
@@ -45,8 +44,7 @@ public class ClienteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> atualizarCliente(@PathVariable UUID id, @RequestBody Cliente clienteAtualizado) {
-        Cliente cliente = clienteService.atualizarCliente(id, clienteAtualizado);
-        return cliente == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(cliente);
+        return ResponseEntity.ok(clienteService.atualizarCliente(id, clienteAtualizado));
     }
 
     @DeleteMapping("/{id}")

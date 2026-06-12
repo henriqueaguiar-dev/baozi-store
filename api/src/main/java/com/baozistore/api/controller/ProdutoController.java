@@ -33,8 +33,7 @@ public class ProdutoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Produto> obterProdutoPorId(@PathVariable UUID id) {
-        Produto produto = produtoService.obterProdutoPorId(id);
-        return produto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(produto);
+        return ResponseEntity.ok(produtoService.obterProdutoPorId(id));
     }
 
     @PostMapping
@@ -44,8 +43,7 @@ public class ProdutoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Produto> atualizarProduto(@PathVariable UUID id, @RequestBody Produto produtoAtualizado) {
-        Produto produto = produtoService.atualizarProduto(id, produtoAtualizado);
-        return produto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(produto);
+        return ResponseEntity.ok(produtoService.atualizarProduto(id, produtoAtualizado));
     }
 
     @DeleteMapping("/{id}")
