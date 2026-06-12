@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+
+# Java / Spring Boot
+**/target/
+**/build/
+**/.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+.factorypath
+.sts4-cache/
+.springBeans
+
+# VS Code
+.vscode/
+
+# Frontend dependencies and builds
+FrontEnd/node_modules/
+FrontEnd/dist/
+FrontEnd/build/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp

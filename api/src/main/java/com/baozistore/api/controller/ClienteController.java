@@ -1,6 +1,7 @@
 package com.baozistore.api.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,7 +33,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obterClientePorId(@PathVariable Long id) {
+    public ResponseEntity<Cliente> obterClientePorId(@PathVariable UUID id) {
         Cliente cliente = clienteService.obterClientePorId(id);
         return cliente == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(cliente);
     }
@@ -43,13 +44,13 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody Cliente clienteAtualizado) {
+    public ResponseEntity<Cliente> atualizarCliente(@PathVariable UUID id, @RequestBody Cliente clienteAtualizado) {
         Cliente cliente = clienteService.atualizarCliente(id, clienteAtualizado);
         return cliente == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(cliente);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarCliente(@PathVariable Long id) {
+    public ResponseEntity<Void> deletarCliente(@PathVariable UUID id) {
         clienteService.deletarCliente(id);
         return ResponseEntity.noContent().build();
     }

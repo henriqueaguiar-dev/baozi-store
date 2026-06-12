@@ -1,5 +1,7 @@
 package com.baozistore.api.model;
 
+import java.util.UUID;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,12 +17,12 @@ import lombok.NoArgsConstructor;
 public class Pedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    private Long clienteId;
+    private UUID clienteId;
 
-    private Long produtoId;
+    private UUID produtoId;
     
     private Integer quantidade;
     

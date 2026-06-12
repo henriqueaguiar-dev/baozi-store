@@ -2,7 +2,9 @@ package com.baozistore.api.service;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import com.baozistore.api.model.Cliente;
 import com.baozistore.api.repository.ClienteRepository;
@@ -17,10 +19,11 @@ public class ClienteService {
     }
 
     public Cliente criarCliente(Cliente cliente) {
+        cliente.setClienteDesde(LocalDate.now());
         return clienteRepository.save(cliente);
     }
 
-    public Cliente obterClientePorId(Long id) {
+    public Cliente obterClientePorId(UUID id) {
         return clienteRepository.findById(id).orElse(null);
     }
 
@@ -28,17 +31,18 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Cliente atualizarCliente(Long id, Cliente clienteAtualizado) {
+    public Cliente atualizarCliente(UUID id, Cliente clienteAtualizado) {
         return clienteRepository.findById(id)
                 .map(cliente -> {
                     cliente.setNome(clienteAtualizado.getNome());
+                    cliente.setCelular(clienteAtualizado.getCelular());
                     cliente.setClienteDesde(clienteAtualizado.getClienteDesde());
                     return clienteRepository.save(cliente);
                 })
                 .orElse(null);
     }
 
-    public void deletarCliente(Long id) {
+    public void deletarCliente(UUID id) {
         clienteRepository.deleteById(id);
     }
     

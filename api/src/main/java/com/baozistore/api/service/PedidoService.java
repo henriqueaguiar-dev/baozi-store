@@ -1,6 +1,7 @@
 package com.baozistore.api.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
-    public Pedido obterPedidoPorId(Long id) {
+    public Pedido obterPedidoPorId(UUID id) {
         return pedidoRepository.findById(id).orElse(null);
     }
 
@@ -28,7 +29,7 @@ public class PedidoService {
         return pedidoRepository.findAll();
     }
 
-    public Pedido atualizarPedido(Long id, Pedido pedidoAtualizado) {
+    public Pedido atualizarPedido(UUID id, Pedido pedidoAtualizado) {
         return pedidoRepository.findById(id)
                 .map(pedido -> {
                     pedido.setClienteId(pedidoAtualizado.getClienteId());
@@ -39,7 +40,7 @@ public class PedidoService {
                 .orElse(null);
     }
 
-    public void deletarPedido(Long id) {
+    public void deletarPedido(UUID id) {
         pedidoRepository.deleteById(id);
     }
 }

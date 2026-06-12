@@ -1,6 +1,7 @@
 package com.baozistore.api.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    public Produto obterProdutoPorId(Long id) {
+    public Produto obterProdutoPorId(UUID id) {
         return produtoRepository.findById(id).orElse(null);
     }
 
@@ -28,7 +29,7 @@ public class ProdutoService {
         return produtoRepository.findAll();
     }
 
-    public Produto atualizarProduto(Long id, Produto produtoAtualizado) {
+    public Produto atualizarProduto(UUID id, Produto produtoAtualizado) {
         return produtoRepository.findById(id)
                 .map(produto -> {
                     produto.setNome(produtoAtualizado.getNome());
@@ -39,7 +40,7 @@ public class ProdutoService {
                 .orElse(null);
     }
 
-    public void deletarProduto(Long id) {
+    public void deletarProduto(UUID id) {
         produtoRepository.deleteById(id);
     }
 }

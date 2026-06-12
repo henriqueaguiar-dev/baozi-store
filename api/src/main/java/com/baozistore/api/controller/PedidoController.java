@@ -1,6 +1,7 @@
 package com.baozistore.api.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,7 +32,7 @@ public class PedidoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pedido> obterPedidoPorId(@PathVariable Long id) {
+    public ResponseEntity<Pedido> obterPedidoPorId(@PathVariable UUID id) {
         Pedido pedido = pedidoService.obterPedidoPorId(id);
         return pedido == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(pedido);
     }
@@ -42,13 +43,13 @@ public class PedidoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pedido> atualizarPedido(@PathVariable Long id, @RequestBody Pedido pedidoAtualizado) {
+    public ResponseEntity<Pedido> atualizarPedido(@PathVariable UUID id, @RequestBody Pedido pedidoAtualizado) {
         Pedido pedido = pedidoService.atualizarPedido(id, pedidoAtualizado);
         return pedido == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(pedido);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPedido(@PathVariable Long id) {
+    public ResponseEntity<Void> deletarPedido(@PathVariable UUID id) {
         pedidoService.deletarPedido(id);
         return ResponseEntity.noContent().build();
     }
